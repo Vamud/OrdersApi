@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MinimalOrdersApi.Models;
+namespace MinimalOrdersApi.Data.Entities;
 
 public partial class Staff
 {
@@ -21,11 +21,14 @@ public partial class Staff
 
     public int? ManagerId { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Staff> InverseManager { get; set; } = new List<Staff>();
 
     public virtual Staff? Manager { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual Store Store { get; set; } = null!;
 }

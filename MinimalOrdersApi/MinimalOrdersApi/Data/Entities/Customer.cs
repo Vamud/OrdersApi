@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MinimalOrdersApi.Models;
+namespace MinimalOrdersApi.Data.Entities;
 
 public partial class Customer
 {
@@ -23,5 +23,6 @@ public partial class Customer
 
     public string? ZipCode { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

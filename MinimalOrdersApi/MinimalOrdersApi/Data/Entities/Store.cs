@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MinimalOrdersApi.Models;
+namespace MinimalOrdersApi.Data.Entities;
 
 public partial class Store
 {
@@ -21,9 +21,12 @@ public partial class Store
 
     public string? ZipCode { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Staff> Staff { get; set; } = new List<Staff>();
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
 }

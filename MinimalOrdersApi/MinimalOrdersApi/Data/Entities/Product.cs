@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MinimalOrdersApi.Models;
+namespace MinimalOrdersApi.Data.Entities;
 
 public partial class Product
 {
@@ -21,7 +21,9 @@ public partial class Product
 
     public virtual Category Category { get; set; } = null!;
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
 }

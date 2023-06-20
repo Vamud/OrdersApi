@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using MinimalOrdersApi.Data.Entities;
 
-namespace MinimalOrdersApi.Models;
+namespace MinimalOrdersApi.Data;
 
 public partial class ApplicationDbContext : DbContext
 {

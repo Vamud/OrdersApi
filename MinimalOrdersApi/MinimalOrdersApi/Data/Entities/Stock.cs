@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MinimalOrdersApi.Models;
+namespace MinimalOrdersApi.Data.Entities;
 
 public partial class Stock
 {

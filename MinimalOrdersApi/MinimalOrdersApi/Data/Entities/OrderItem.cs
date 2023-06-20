@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MinimalOrdersApi.Models;
+namespace MinimalOrdersApi.Data.Entities;
 
 public partial class OrderItem
 {
@@ -17,6 +17,7 @@ public partial class OrderItem
 
     public decimal Discount { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public virtual Order Order { get; set; } = null!;
 
     public virtual Product Product { get; set; } = null!;
