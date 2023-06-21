@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MinimalOrdersApi.Data.Entities;
 using MinimalOrdersApi.Models.Dto;
+using MinimalOrdersApi.Models.Requests;
 
 namespace MinimalOrdersApi.Mapping
 {
@@ -17,6 +18,7 @@ namespace MinimalOrdersApi.Mapping
             CreateMap<OrderItem, OrderItemDto>();
             CreateMap<Staff, StaffDto>();
             CreateMap<Product, ProductDto>();
+            CreateMap<CreateOrderRequest, Order>();
         }
     }
 }

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using MinimalOrdersApi.Data;
 using MinimalOrdersApi.Data.Entities;
 using MinimalOrdersApi.Models.Dto;
+using MinimalOrdersApi.Models.Enums;
+using MinimalOrdersApi.Models.Requests;
 using MinimalOrdersApi.Models.Response;
 using MinimalOrdersApi.Repositories.Interfases;
 
@@ -18,14 +20,23 @@ namespace MinimalOrdersApi.Repositories
             _mapper = mapper;
         }
 
-        public async Task<int> AddAsync(Order order)
+        public async Task<int> AddAsync(CreateOrderRequest orderRequest)
         {
+            var order = new Order()
+            {
+                CustomerId = orderRequest.CustomerId,
+                OrderStatus = 3,
+                OrderDate = DateTime.Now,
+                StaffId = orderRequest.StaffId,
+                StoreId = orderRequest.StoreId
+            };
+
             var item = await _dbContext.Orders.AddAsync(order);
             await _dbContext.SaveChangesAsync();
             return item.Entity.OrderId;
         }
 
-        public async Task<Order?> GetByIdAsync(int id)
+        public async Task<OrderDto?> GetByIdAsync(int id)
         {
             IQueryable<Order> query = _dbContext.Orders;
 
@@ -37,7 +48,7 @@ namespace MinimalOrdersApi.Repositories
                 .ThenInclude(p => p.Product)
                 .FirstOrDefaultAsync();
 
-            return order;
+            return _mapper.Map<OrderDto>(order);
         }
 
         public async Task<PaginatedResponse<OrderDto>> GetByPageAsync(int pageIndex)
@@ -64,9 +75,16 @@ namespace MinimalOrdersApi.Repositories
             };
         }
 
-        public async Task CenselOrderAsync(int orderId)
+        public async Task CancelOrderAsync(int orderId)
         {
-            var item = await _dbContext.Orders.FindAsync(orderId);
+            var item = await _dbContext.Orders.FirstOrDefaultAsync(i => i.OrderId == orderId);
+
+            if (item != null)
+            {
+                item.OrderStatus = (int)OrderStatus.Canceled;
+
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
